@@ -1,15 +1,17 @@
+import debounce from 'lodash.debounce';
 import './css/styles.css';
 
 import {fetchCountries} from './fetchCountries';
 
+let inputData = '';
 const DEBOUNCE_DELAY = 300;
 const inputCountryName = document.querySelector('#search-box');
 
-inputCountryName.addEventListener('input', _.debounce(inputFromUser, DEBOUNCE_DELAY))
+inputCountryName.addEventListener('input', debounce(inputFromUser, 300))
 
-function inputFromUser (event) {
-    const userData = event.currentTarget.value
-    console.log(userData)
+function inputFromUser (evt) {
+    inputData = evt.target.value
+    console.log(inputData)
 }
 
 // countriesList()
