@@ -5,14 +5,20 @@ import {fetchCountries} from './fetchCountries';
 
 let inputData = '';
 const DEBOUNCE_DELAY = 300;
+
 const inputCountryName = document.querySelector('#search-box');
 
-inputCountryName.addEventListener('input', debounce(inputFromUser, 300))
+inputCountryName.addEventListener('input', inputFromUser)
 
 function inputFromUser (evt) {
     inputData = evt.target.value
+    
     console.log(inputData)
+
+fetchCountries(inputData)
+// .then(cardOfCountry)
 }
+
 
 // countriesList()
 // function countriesList(country) {
@@ -22,24 +28,24 @@ function inputFromUser (evt) {
 //     </div>`;
 // }
 
-// cardOfCountry ();
+
  
-// function cardOfCountry (country) {
+// function cardOfCountry (name) {
 //     const markup = ` <div class="country-card">
 //          <div class="country-head">
-//          <img class="country-image" src="${country.flags.svg}" alt="flag" widht="150px" height ="50px">
-//          <h1 class="country-name">${country.name.official}</h1>
+//          <img class="country-image" src="${name.flags.svg}" alt="flag" widht="150px" height ="50px">
+//          <h1 class="country-name">${name.name.official}</h1>
 //          </div>
 //    <div class="country-information">
 //    <b>Capital:</b>
-//    <p>${country.capital}</p>
+//    <p>${name.capital}</p>
 //    <b>Population</b>
-//    <p>${country.population}</p>
+//    <p>${name.population}</p>
 //    <b>Lenguages:</b>
-//    <p>${country.languages}</p>
+//    <p>${name.languages}</p>
 //    </div>
 //    </div>`;
   
-//     countryInfo.innerHTML = '';
-//     countriesList.innerHTML = markup;
+//     // countryInfo.innerHTML = '';
+//     cardOfCountry.innerHTML = markup;
 // }
