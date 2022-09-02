@@ -17,7 +17,7 @@ inputCountryName.addEventListener('input', debounce(inputFromUser, DEBOUNCE_DELA
 
 function inputFromUser (evt) {
     inputData = evt.target.value
-    
+    Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
     console.log(inputData)
 
 fetchCountries(inputData)
@@ -28,9 +28,9 @@ fetchCountries(inputData)
 
 function renderCountryCard(name) {
     console.log('country', name)
-      const markup = card(name);
+      const markup = card(name) 
       console.log('V', markup)
-      countryListContainer.innerHTML = '';
+    //   countryListContainer.innerHTML = '';
     countryInfoContainer.innerHTML = markup;
 }
 
