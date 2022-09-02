@@ -4,13 +4,14 @@ import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 
 import {fetchCountries} from './fetchCountries';
+import card from './templates/card.hbs';
 
 let inputData = '';
 const DEBOUNCE_DELAY = 300;
 
 const inputCountryName = document.querySelector('#search-box');
 const countryListContainer = document.querySelector('.country-list');
-// const countryInfoContainer = document.querySelector('.country-info');
+const countryInfoContainer = document.querySelector('.country-info');
 
 inputCountryName.addEventListener('input', debounce(inputFromUser, DEBOUNCE_DELAY))
 
@@ -27,20 +28,22 @@ fetchCountries(inputData)
 
 function renderCountryCard(name) {
     console.log('country', name)
-      const markup = countriesList(name);
-      countriesList.innerHTML = markup;
+      const markup = card(name);
+      console.log('V', markup)
+      countryListContainer.innerHTML = '';
+    countryInfoContainer.innerHTML = markup;
 }
 
- // function countriesList(name) {
+//  function countriesList(name) {
             // const flag = name.flags;
             // const countryName = name.name.official;
                         
-            // list = `<div class="countries-list"> 
-            // <img class="country-image" src="https://flagcdn.com/w320/pe.png" alt="flag" height ="50px">
-            // <h1 class="country-name">${name.official}</h1>
-            // </div>`;        
+        //     list = `<div class="countries-list"> 
+        //     // <img class="country-image" src="https://flagcdn.com/w320/pe.png" alt="flag" height ="50px">
+        //     <h1 class="country-name">${name}${official}</h1>
+        //     </div>`;        
   
-        // }
+        // };
 
 
 // function cardOfCountry (name) {
@@ -69,12 +72,12 @@ function renderCountryCard(name) {
 // }
 
 
-function countriesList(name) {
+// function countriesList(name) {
     // `<div class="countries-list"> 
     // <img class="country-image" src="https://flagcdn.com/pe.svg" alt="flag" widht="150px" height ="50px">
     // <h1 class="country-name">${name.name.official}</h1>
     // </div>`;  
-}
+// }
 
  
 // function cardOfCountry (name) {
