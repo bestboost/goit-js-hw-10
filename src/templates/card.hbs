@@ -1,11 +1,23 @@
- <div class="country-head">
+ 
+  {{#each this}}
+  <div class="country-head">
     <img class="country-image" src="{{flags.svg}}" alt="flag" widht="150px" height ="50px">
-    <h1 class="country-name">{{name.oficiale}}</h1>
+    <h1 class="country-name">{{name.official}}</h1>
 </div>
        <div class="country-information">
-              <p>Capital: {{capital}}</p>
-              <p>Population: {{population}}</p>
-            {{#each this}}
-              <li>Languages:{{languages}}</li>
+              <div class="country-capital">
+              <h2>Capital:</h2>
+              <p>{{capital}}</p>
+              </div>
+               <div class="country-population">
+              <h2>Population: </h2>
+              <p>{{population}}</p>
+              </div>
+              <div class="country-languages">
+                <h2>Languages:</h2>
+            {{#each languages}}
+                <p class="languages">{{this}}</p>
             {{/each}}
+            </div>
        </div>
+        {{/each}}

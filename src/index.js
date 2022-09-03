@@ -5,6 +5,7 @@ import Notiflix from 'notiflix';
 
 import {fetchCountries} from './fetchCountries';
 import card from './templates/card.hbs';
+import list from './templates/list.hbs';
 
 let inputData = '';
 const DEBOUNCE_DELAY = 300;
@@ -16,86 +17,44 @@ const countryInfoContainer = document.querySelector('.country-info');
 inputCountryName.addEventListener('input', debounce(inputFromUser, DEBOUNCE_DELAY))
 
 function inputFromUser (evt) {
-    inputData = evt.target.value
-    Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
-    console.log(inputData)
+    inputData = evt.target.value.trim();
+
+    if (!inputData) {
+        countryListContainer.innerHTML = '';
+        countryInfoContainer.innerHTML = '';
+           return;
+      }
+   
 
 fetchCountries(inputData)
-.then (renderCountryCard)         
-.catch(error => console.log(error));
+.then (renderList);         
+
+fetchCountries(inputData)
+.then (renderCountryCard);         
+
 }
 
+
+
+function renderList(name) {
+    const listMarkup = list(name)
+   
+    if (name.length >= 10) {
+        Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
+    } else if (name.length >= 2 || name.length <= 9) {
+      countryListContainer.innerHTML = listMarkup;
+
+    } 
+    
+}
 
 function renderCountryCard(name) {
-    console.log('country', name)
-      const markup = card(name) 
-      console.log('V', markup)
-    //   countryListContainer.innerHTML = '';
-    countryInfoContainer.innerHTML = markup;
+       const markup = card(name) 
+      
+      if (name.length === 1) {
+      
+      countryListContainer.innerHTML = '';
+      countryInfoContainer.innerHTML = markup;
+      }
 }
 
-//  function countriesList(name) {
-            // const flag = name.flags;
-            // const countryName = name.name.official;
-                        
-        //     list = `<div class="countries-list"> 
-        //     // <img class="country-image" src="https://flagcdn.com/w320/pe.png" alt="flag" height ="50px">
-        //     <h1 class="country-name">${name}${official}</h1>
-        //     </div>`;        
-  
-        // };
-
-
-// function cardOfCountry (name) {
-//     const flag = name.flags;
-//     const countryName = name.name.official;
-//     const capital = name.capital;
-//     const population = name.population;
-//     const languages = Object.values(name.languages).join(', ')
-
-//     const markup = ` <div class="country-card">
-//              <div class="country-head">
-//              <img class="country-image" src="https://flagcdn.com/${flag}.svg" alt="flag" widht="150px" height ="50px">
-//              <h1 class="country-name">${countryName}</h1>
-//              </div>
-//        <div class="country-information">
-//        <b>Capital:</b>
-//        <p>${name.capital}</p>
-//        <b>Population</b>
-//        <p>${name.population}</p>
-//        <b>Lenguages:</b>
-//        <p>${name.languages}</p>
-//        </div>
-//        </div>`;
-      
-//     countryInfoContainer.innerHTML = markup;
-// }
-
-
-// function countriesList(name) {
-    // `<div class="countries-list"> 
-    // <img class="country-image" src="https://flagcdn.com/pe.svg" alt="flag" widht="150px" height ="50px">
-    // <h1 class="country-name">${name.name.official}</h1>
-    // </div>`;  
-// }
-
- 
-// function cardOfCountry (name) {
-//     const markup = ` <div class="country-card">
-//          <div class="country-head">
-//          <img class="country-image" src=${name.flags.svg} alt="flag" widht="150px" height ="50px">
-//          <h1 class="country-name">${name.official}</h1>
-//          </div>
-//    <div class="country-information">
-//    <b>Capital:</b>
-//    <p>${name.capital}</p>
-//    <b>Population</b>
-//    <p>${name.population}</p>
-//    <b>Lenguages:</b>
-//    <p>${name.languages}</p>
-//    </div>
-//    </div>`;
-  
-//     countriesList.innerHTML = '';
-//     cardOfCountry.innerHTML = markup;
-// }
